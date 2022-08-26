@@ -6,10 +6,11 @@ spec:
   ports: 
     - port: 80 
       targetPort: 9898 
-      nodePort: 30001 
+      nodePort: 30001
+      name: base
     - port: 81 
       targetPort: 9797 
-      nodePort: 30002 
+      name: metric
   selector: 
     app: podinfo 
   type: LoadBalancer 
