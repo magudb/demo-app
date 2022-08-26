@@ -16,3 +16,4 @@ spec:
           image: stefanprodan/podinfo 
           ports: 
             - containerPort: 9898 
+            - containerPort: 9797 
