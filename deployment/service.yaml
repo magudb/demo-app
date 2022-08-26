@@ -9,6 +9,7 @@ spec:
       nodePort: 30001 
     - port: 81 
       targetPort: 9797 
+      nodePort: 30002 
   selector: 
     app: podinfo 
   type: LoadBalancer 
