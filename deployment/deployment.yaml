@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: demoapp
-        image: ghcr.io/magudb/demo-app:main
+        image: ghcr.io/magudb/demo-app:latest
         imagePullPolicy: Always
         ports:
         - name: http
