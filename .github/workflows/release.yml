@@ -1,9 +1,9 @@
 name: 🚀 Deploy
 on:
- push:
-   tags:
-     - "v*"
-  pull_request: {}
+  push:
+    tags:
+        - "v*"
+
 
 permissions:
   actions: write
