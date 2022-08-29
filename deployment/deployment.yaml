@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: podinfo-${branch}
+  name: podinfo
 spec:
   minReadySeconds: 3
   revisionHistoryLimit: 5
@@ -12,14 +12,14 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: podinfo-${branch}
+      app: podinfo
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9797"
       labels:
-        app: podinfo-${branch}
+        app: podinfo
     spec:
       containers:
       - name: podinfod

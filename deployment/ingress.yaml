@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1 
 kind: Ingress 
 metadata: 
-  name: podinfo-${branch} 
+  name: podinfo 
 spec: 
   ingressClassName: nginx 
   rules: 
@@ -10,14 +10,14 @@ spec:
         paths: 
           - backend: 
               service: 
-                name: podinfo-${branch} 
+                name: podinfo 
                 port: 
                   number: 9898 
             path: / 
             pathType: Prefix 
           - backend: 
               service: 
-                name: podinfo-${branch} 
+                name: podinfo 
                 port: 
                   number: 9797 
             path: /metrics
