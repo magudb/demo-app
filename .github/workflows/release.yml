@@ -16,9 +16,7 @@ jobs:
   
 
   build:
-    name: 🐳 Build
-        # only build/deploy main branch on pushes
-    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
+    name: 🐳 Build  
     runs-on: ubuntu-latest
     permissions:
       contents: read
