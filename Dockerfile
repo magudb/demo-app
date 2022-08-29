@@ -41,6 +41,8 @@ RUN npm run build
 FROM base
 
 ENV DATABASE_URL=file:/data/sqlite.db
+ENV SESSION_SECRET="super-duper-s3cret"
+
 ENV PORT="8080"
 ENV NODE_ENV="production"
 
