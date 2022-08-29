@@ -5,7 +5,7 @@ metadata:
 spec: 
   ingressClassName: nginx 
   rules: 
-    - host: 74.220.27.232 
+    - host: 377c0f17-854e-4a1b-863d-a1b685ae2ef7.lb.civo.com
       http: 
         paths: 
           - backend: 
