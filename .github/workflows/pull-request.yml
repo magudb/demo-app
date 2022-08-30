@@ -1,4 +1,4 @@
-name: 🚀 Deploy
+name: Pull-request
 on: [push, pull_request]
 
 
@@ -118,8 +118,6 @@ jobs:
 
   build:
     name: 🐳 Build
-        # only build/deploy main branch on pushes
-    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
