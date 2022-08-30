@@ -9,6 +9,7 @@ const service = (params)=>({
     "apiVersion": "v1",
     "kind": "Service",
     "metadata": {
+        "namespace": "default",
         "name": `${params.product}-${params.branch}`
     },
     "spec": {
