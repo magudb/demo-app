@@ -21,7 +21,7 @@ spec:
     # sed -i 's/ghcr.io/magudb/demo-app:.*/ghcr.io/magudb/demo-app:/g' deployment/deployment.yaml
       containers:
       - name: demoapp
-        image: ghcr.io/magudb/demo-app:v1.0.3
+        image: ghcr.io/magudb/demo-app:latest
         imagePullPolicy: Always
         ports:
         - name: http
