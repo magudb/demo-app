@@ -59,7 +59,9 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Create Kubernetes deployment
-        run: bash ./deployment/create_deployment.sh ${{ steps.extract_branch.outputs.branch }} demo-app
+        run: |
+          ls -la
+          bash deployment/create_deployment.sh ${{ steps.extract_branch.outputs.branch }} demo-app
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:
