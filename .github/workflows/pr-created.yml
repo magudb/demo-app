@@ -44,6 +44,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   add_to_flux:
+    needs: build
     name: 🐳 Add branch to flux
     runs-on: ubuntu-latest
     permissions:
@@ -58,7 +59,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Create Kubernetes deployment
-        run: bash .github/scripts/create_deployment.sh ${{ steps.extract_branch.outputs.branch }} demo-app
+        run: bash ./deployment/create_deployment.sh ${{ steps.extract_branch.outputs.branch }} demo-app
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:
