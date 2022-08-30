@@ -27,4 +27,4 @@ const service = (params)=>({
     }
 })
 
-write(service(params), `features/${params.product}-${params.branch}/service.yaml`);
+write(service(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/service.yaml`);

@@ -43,4 +43,4 @@ const ingress = (params)=>({
         ]
     }
 })
-write(ingress(params), `features/${params.product}-${params.branch}/ingress.yaml`);
+write(ingress(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/ingress.yaml`);

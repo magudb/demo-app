@@ -22,4 +22,4 @@ const source = (params)=>({
     }
 })
 
-write(source(params), `features/${params.product}-${params.branch}-source.yaml`);
+write(source(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}-source.yaml`);

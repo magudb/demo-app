@@ -9,6 +9,6 @@ const params = {
 };
 
 const kustomization = (params) =>({"apiVersion":"kustomize.config.k8s.io/v1beta1","kind":"Kustomization","resources":["hpa.yaml","deployment.yaml","service.yaml","ingress.yaml"]})
-write(kustomization(params), `features/${params.product}-${params.branch}/kustomization.yaml`);
+write(kustomization(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/kustomization.yaml`);
 
 

@@ -52,22 +52,25 @@ jobs:
       packages: write
 
     steps:
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+      - name: Checkout tools repo
+        uses: actions/checkout@v3
+        with:
+          repository: magudb/fleet-infra
+          path: fleet-infra
       - name: Create Kubernetes deployment
         run: |
-          ls -la
-          bash deployment/create_deployment.sh ${{ steps.extract_branch.outputs.branch }} demo-app
+          bash deployment/create_deployment.sh ${GIT_BRANCH_NAME} demo-app
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
         with:
-          source-directory: 'features'
+          source-directory: 'fleet-infra'
           destination-github-username: 'magudb'
           destination-repository-name: 'fleet-infra'
           user-email: mau@cbit.dk

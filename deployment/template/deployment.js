@@ -68,4 +68,4 @@ const deployment = (params) => ({
     }
 });
 
-write(deployment(params), `features/${params.product}-${params.branch}/deployment.yaml`);
+write(deployment(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/deployment.yaml`);
