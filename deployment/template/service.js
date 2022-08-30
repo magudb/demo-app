@@ -17,13 +17,13 @@ const service = (params)=>({
                 "name": "http",
                 "port": 8080,
                 "protocol": "TCP",
-                "targetPort": "http"
+
             }
         ],
         "selector": {
             "app": `${params.product}-${params.branch}`
         },
-        "type": "LoadBalancer"
+        "type": "ClusterIP"
     }
 })
 
