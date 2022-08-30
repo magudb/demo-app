@@ -25,4 +25,4 @@ const kustomization = (params) =>({
     }
 })
 
-write(kustomization(params), `features/${params.product}-${params.branch}-kustomization.yaml`);
+write(kustomization(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}-kustomization.yaml`);

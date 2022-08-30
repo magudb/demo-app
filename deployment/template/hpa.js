@@ -35,4 +35,4 @@ const hpa = (params)=>({
         }
     }
 });
-write(hpa(params), `features/${params.product}-${params.branch}/hpa.yaml`);
+write(hpa(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/hpa.yaml`);
