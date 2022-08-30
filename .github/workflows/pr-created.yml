@@ -44,6 +44,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   add_to_flux:
+    needs: build
     name: 🐳 Add branch to flux
     runs-on: ubuntu-latest
     permissions:
