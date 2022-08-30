@@ -12,6 +12,7 @@ const deployment = (params) => ({
     "kind": "Deployment",
     "metadata":
     {
+        "namespace": "default",
         "name": `${params.product}-${params.branch}`
     },
     "spec":

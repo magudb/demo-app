@@ -9,6 +9,7 @@ const service = (params)=>({
     "apiVersion": "v1",
     "kind": "Service",
     "metadata": {
+        "namespace": "default",
         "name": `${params.product}-${params.branch}`
     },
     "spec": {
@@ -17,13 +18,13 @@ const service = (params)=>({
                 "name": "http",
                 "port": 8080,
                 "protocol": "TCP",
-                "targetPort": "http"
+
             }
         ],
         "selector": {
             "app": `${params.product}-${params.branch}`
         },
-        "type": "LoadBalancer"
+        "type": "ClusterIP"
     }
 })
 

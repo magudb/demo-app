@@ -16,6 +16,7 @@ const ingress = (params)=>({
             "nginx.ingress.kubernetes.io/canary-by-header": "x-branch",
             "nginx.ingress.kubernetes.io/canary-by-header-value": `${params.branch}`
         },
+        "namespace": "default",
         "name": `${params.product}-${params.branch}`
     },
     "spec": {

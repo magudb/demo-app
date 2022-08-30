@@ -11,6 +11,7 @@ const hpa = (params)=>({
     "apiVersion": "autoscaling/v2beta2",
     "kind": "HorizontalPodAutoscaler",
     "metadata": {
+        "namespace": "default",
         "name": `${params.product}`
     },
     "spec": {
