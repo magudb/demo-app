@@ -13,7 +13,7 @@ env:
 
 jobs:
   build:
-    name: 🐳 Build
+    name: 🐳 CLosed
     runs-on: ubuntu-latest
     permissions:
       contents: read
