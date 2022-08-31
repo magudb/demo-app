@@ -3,7 +3,8 @@ kind: Ingress
 metadata: 
   name: demo-app
   annotations:
-    ingress.kubernetes.io/rewrite-target: /
+      ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/canary: "true"
 spec: 
   ingressClassName: nginx 
   rules: 
