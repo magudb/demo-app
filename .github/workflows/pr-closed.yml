@@ -1,0 +1,84 @@
+name: Pull-request Created
+on:
+  pull_request:
+    types: [closed]
+
+
+permissions:
+  actions: write
+  contents: read
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    name: 🐳 Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@69f6fc9d46f2f8bf0d5491e4aabe0bb8c6a4678a
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@c84f38281176d4c9cdb1626ffafcd6b3911b5d94
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  add_to_flux:
+    needs: build
+    name: 🐳 Add branch to flux
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Checkout tools repo
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          token: ${{ secrets.GH_TOKEN }}
+          repository: magudb/fleet-infra
+          path: fleet-infra
+      - name: remove Kubernetes deployment
+        run: |
+          rm -rf fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}
+          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}-source.yaml
+          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}-kustomization.yaml
+      - name: Pushes to fleet-infra
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
+        with:
+          source-directory: 'fleet-infra'
+          destination-github-username: 'magudb'
+          destination-repository-name: 'fleet-infra'
+          user-email: mau@cbit.dk
+          target-branch: main
+      
+
+ 
