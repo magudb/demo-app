@@ -31,7 +31,8 @@ const deployment = (params) => ({
                 "maxUnavailable": 0
             },
             "type": "RollingUpdate"
-        }, "template":
+        }, 
+        "template":
         {
             "metadata":
             {

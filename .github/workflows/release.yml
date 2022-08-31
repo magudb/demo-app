@@ -46,3 +46,18 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Get Version
+        id: image
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo VERSION=$VERSION
+          echo "::set-output name=version::$VERSION"
+      - name: Update Image Version in deployment.yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'deployment/deployment.yaml'
+          propertyPath: 'spec.template.spec.containers[0].image'
+          value: ghcr.io/magudb/demo-app:${{ steps.image.outputs.version }}
+          branch: main
+          createPR: false
+          message: 'Update Image Version to ${{ steps.image.outputs.version }}'
