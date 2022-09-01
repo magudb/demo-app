@@ -2,12 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/canary: "true"
     nginx.ingress.kubernetes.io/canary-by-header: "x-branch"
     nginx.ingress.kubernetes.io/canary-by-header-value: "(BRANCH)"
   labels:
-    app: (PRODUCT)
+    app: (PRODUCT)-(BRANCH)
   name: (PRODUCT)-(BRANCH)
   namespace: default
 spec:
