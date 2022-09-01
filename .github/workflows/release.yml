@@ -46,6 +46,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
       - name: Get Version
         id: image
         run: |
