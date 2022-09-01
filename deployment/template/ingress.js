@@ -6,7 +6,7 @@ const params = {
     product: param.String('product', 'appname'),
     branch: param.String('branch', 'main'),
 };
-const ingress = (params)=>({
+const ingress = (params) => ({
     "apiVersion": "networking.k8s.io/v1",
     "kind": "Ingress",
     "metadata": {
@@ -14,11 +14,11 @@ const ingress = (params)=>({
             "ingress.kubernetes.io/rewrite-target": "/",
             "nginx.ingress.kubernetes.io/canary": "true",
             "nginx.ingress.kubernetes.io/canary-by-header": "x-branch",
-            "nginx.ingress.kubernetes.io/canary-by-header-value": `${params.branch}`
+            "nginx.ingress.kubernetes.io/canary-by-header-value": "" + params.branch + ""
         },
-        "labels":{
+        "labels": {
             "app": `${params.product}`
-        },        
+        },
         "namespace": "default",
         "name": `${params.product}-${params.branch}`
     },
@@ -46,5 +46,5 @@ const ingress = (params)=>({
             }
         ]
     }
-})
+});
 write(ingress(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}/ingress.yaml`);
