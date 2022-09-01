@@ -46,24 +46,29 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
+      #   with:
+      #     ref: main
+      # - name: Get Version
+      #   id: image
+      #   run: |
+      #     VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+      #     echo VERSION=$VERSION
+      #     echo "::set-output name=version::$VERSION"
+      # - name: Update Image Version in deployment.yaml
+      #   uses: mikefarah/yq@master
+      #   with:
+      #     cmd: yq -i '.spec.template.spec.containers[0].image = "ghcr.io/magudb/demo-app:${{ steps.image.outputs.version }}"' 'deployment/deployment.yaml'
+      # - uses: EndBug/add-and-commit@v9
+      #   with:
+      #     github_token: ${{ secrets.GH_TOKEN }}
+      #     default_author: github_actions
+      #     add: './deployment/deployment.yaml'          
+      #     message: '[RELEASE] Version updated'
+      - uses: pocket-apps/action-update-version@v1
         with:
-          ref: main
-      - name: Get Version
-        id: image
-        run: |
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          echo VERSION=$VERSION
-          echo "::set-output name=version::$VERSION"
-      - name: Update Image Version in deployment.yaml
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq -i '.spec.template.spec.containers[0].image = "ghcr.io/magudb/demo-app:${{ steps.image.outputs.version }}"' 'deployment/deployment.yaml'
-      - uses: EndBug/add-and-commit@v9
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          default_author: github_actions
-          add: './deployment/deployment.yaml'          
-          message: '[RELEASE] Version updated'
+          files: './deployment/deployment.yaml'
+          version-regexp: 'v\d+.\d+.\d+'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
