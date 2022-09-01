@@ -19,7 +19,7 @@ const kustomization = (params) =>({
         "prune": true,
         "sourceRef": {
             "kind": "GitRepository",
-            "name": `flux-system`
+            "name": `${params.product}-${params.branch}`
         }
     }
 })
