@@ -15,7 +15,7 @@ const hpa = (params)=>({
         "name": `${params.product}-${params.branch}`
     },
     "spec": {
-        "maxReplicas": 3,
+        "maxReplicas": 1,
         "metrics": [
             {
                 "resource": {
