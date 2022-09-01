@@ -34,9 +34,9 @@ jobs:
           path: fleet-infra
       - name: remove Kubernetes deployment
         run: |
-          rm -rf fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}
-          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}-source.yaml
-          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME}-kustomization.yaml
+          rm -rf fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME,,}
+          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME,,}-source.yaml
+          rm `fleet-infra/clusters/kube-local/features/demo-app-${GIT_BRANCH_NAME,,}-kustomization.yaml
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:
