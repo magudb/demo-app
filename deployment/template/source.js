@@ -18,7 +18,7 @@ const source = (params)=>({
         "ref": {
             "branch": "main"
         },
-        "url": "ssh://git@github.com/magudb/fleet-infra"
+        "url": "https://github.com/magudb/fleet-infra"
     }
 })
 
