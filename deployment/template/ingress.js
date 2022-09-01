@@ -6,6 +6,7 @@ const params = {
     product: param.String('product', 'appname'),
     branch: param.String('branch', 'main'),
 };
+const header = "x-branch"
 const ingress = (params) => ({
     "apiVersion": "networking.k8s.io/v1",
     "kind": "Ingress",
@@ -13,8 +14,8 @@ const ingress = (params) => ({
         "annotations": {
             "ingress.kubernetes.io/rewrite-target": "/",
             "nginx.ingress.kubernetes.io/canary": "true",
-            "nginx.ingress.kubernetes.io/canary-by-header": "'x-branch'",
-            "nginx.ingress.kubernetes.io/canary-by-header-value": "" + params.branch + ""
+            "nginx.ingress.kubernetes.io/canary-by-header": header,
+            "nginx.ingress.kubernetes.io/canary-by-header-value":  "" + params.branch + ""
         },
         "labels": {
             "app": `${params.product}`
