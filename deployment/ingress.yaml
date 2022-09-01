@@ -3,13 +3,11 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    ingress.kubernetes.io/rewrite-target: /
   name: demo-app
   labels:
     app: demo-app
   namespace: default
 spec: 
-  ingressClassName: nginx 
   rules: 
     - host: 377c0f17-854e-4a1b-863d-a1b685ae2ef7.lb.civo.com
       http: 
