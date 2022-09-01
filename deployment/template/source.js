@@ -18,7 +18,7 @@ const kustomization = (params) =>({
         "path": `./clusters/kube-local/features/${params.product}-${params.branch}`,
         "ref": {
           "branch": "main"
-        }
+        },
         "url": "ssh://git@github.com/magudb/fleet-infra"
     }
 })
