@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: (PRODUCT)-(BRANCH)
+  namespace: default
+spec:
+  minReadySeconds: 3
+  progressDeadlineSeconds: 60
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: (PRODUCT)-(BRANCH)
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: (PRODUCT)-(BRANCH)
+    spec:
+      containers:
+      - image: ghcr.io/magudb/(PRODUCT):(BRANCH)
+        imagePullPolicy: Always
+        name: (PRODUCT)-(BRANCH)
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
