@@ -14,8 +14,8 @@ const ingress = (params)=>({
             "kubernetes.io/ingress.class": "nginx",
             "ingress.kubernetes.io/rewrite-target": "/",
             "nginx.ingress.kubernetes.io/canary": "true",
-            "nginx.ingress.kubernetes.io/canary-by-header": "x-branch",
-            "nginx.ingress.kubernetes.io/canary-by-header-value": `${params.branch}`
+            "nginx.ingress.kubernetes.io/canary-by-header": "\"x-branch\"",
+            "nginx.ingress.kubernetes.io/canary-by-header-value": `"${params.branch}"`
         },
         "labels":{
             "app": `${params.product}`
