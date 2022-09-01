@@ -15,13 +15,12 @@ const kustomization = (params) =>({
     },
     "spec": {
         "interval": "5m0s",
-        "path": `clusters/kube-local/features/${params.product}-${params.branch}`,
+        "path": `./clusters/kube-local/features//${params.product}-${params.branch}`,
         "prune": true,
         "sourceRef": {
             "kind": "GitRepository",
-            "name": `${params.product}-${params.branch}`
-        },
-        "targetNamespace": "default"
+            "name": `flux-system`
+        }
     }
 })
 

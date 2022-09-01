@@ -22,6 +22,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
 
       - name: Log in to the Container registry
         uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
@@ -41,7 +44,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: magudb/demo-app:${{ steps.branch-name.outputs.current_branch }}
           labels: ${{ steps.meta.outputs.labels }}
   add_to_flux:
     needs: build
