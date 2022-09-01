@@ -7,21 +7,20 @@ const params = {
 };
 
 const kustomization = (params) =>({
-    "apiVersion": "kustomize.toolkit.fluxcd.io/v1beta2",
-    "kind": "Kustomization",
+    "apiVersion": "source.toolkit.fluxcd.io/v1beta2",
+    "kind": "GitRepository",
     "metadata": {
         "name": `${params.product}-${params.branch}`,
         "namespace": "flux-system"
     },
     "spec": {
-        "interval": "5m0s",
+        "interval": "1m0s",
         "path": `./clusters/kube-local/features/${params.product}-${params.branch}`,
-        "prune": true,
-        "sourceRef": {
-            "kind": "GitRepository",
-            "name": `flux-system`
-        }
+        "ref": {
+          "branch": "main"
+        },
+        "url": "ssh://git@github.com/magudb/fleet-infra"
     }
 })
 
-write(kustomization(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}-kustomization.yaml`);
+write(kustomization(params), `fleet-infra/clusters/kube-local/features/${params.product}-${params.branch}-source.yaml`);
