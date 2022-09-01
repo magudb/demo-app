@@ -65,5 +65,5 @@ jobs:
           default_author: github_actions
           add: './deployment/deployment.yaml'          
           message: '[RELEASE] Version updated'
-          #push: origin HEAD:main
+          ref: main
 
