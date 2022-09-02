@@ -20,6 +20,8 @@ jobs:
       packages: write
 
     steps:
+      - id: commit
+        uses: pr-mpt/actions-commit-hash@v1
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Get branch name
@@ -47,8 +49,9 @@ jobs:
           tags: ghcr.io/magudb/demo-app:${{ steps.branch-name.outputs.current_branch }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "VERSION=${{ steps.meta.outputs.tags }}"
-            "SHA=$GITHUB_SHA"
+            "VERSION=${{ steps.branch-name.outputs.current_branch }}"
+            "SHA=${{ steps.commit.outputs.short }}"
+
   add_to_flux:
     needs: build
     name: 🐳 Add branch to flux
@@ -72,7 +75,7 @@ jobs:
           path: fleet-infra
       - name: Create Kubernetes deployment
         run: |
-          bash deployment/create_deployment.sh ${GIT_BRANCH_NAME} demo-app
+          bash deployment/create_deployment.sh ${GIT_BRANCH_NAME,,} demo-app
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:

@@ -1,19 +1,11 @@
 import { Link } from "@remix-run/react";
-
 import { useOptionalUser } from "~/utils";
 
-const getVersion = ()=>{
-  return process.env.VERSION
-}
 
-const getSha = ()=>{
-  return process.env.SHA
-}
+
 
 export default function Index() {
   const user = useOptionalUser();
-  const version = getVersion()
-  const sha = getSha();
   return (
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
       <div className="relative sm:pb-16 sm:pt-8">
@@ -28,9 +20,9 @@ export default function Index() {
               <div className="absolute inset-0 bg-[color:rgba(254,204,27,0.5)] mix-blend-multiply" />
             </div>
             <div className="relative px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pb-20 lg:pt-32">
-              <h2 className="text-center text-4xl font-extrabold tracking-tight sm:text-4xl lg:text-4xl">
+              <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-2xl lg:text-2xl">
                 <span className="block uppercase text-yellow-500 drop-shadow-md">
-                  Version: MAIN
+                  Version: TEST-0025
                 </span>
               </h2>
             </div>
@@ -73,9 +65,6 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <footer>
-        VERSION: {version} - SHA: {sha}
-      </footer>
     </main>
   );
 }
