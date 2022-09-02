@@ -3,25 +3,17 @@ on:
   push:
     tags:
         - "v*"
-
-
-permissions:
-  actions: write
-  contents: read
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  
-
   build:
     name: 🐳 Build  
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -46,6 +38,13 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  release:
+    name: 🐳 Build  
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Get Version
         id: image
         run: |
@@ -59,7 +58,7 @@ jobs:
       - uses: EndBug/add-and-commit@v9
         with:
           new_branch: release
-          github_token: ${{ secrets.GH_TOKEN }}
+          #github_token: ${{ secrets.GH_TOKEN }}
           add: './deployment/deployment.yaml'          
           message: '[RELEASE] Version updated'
 
