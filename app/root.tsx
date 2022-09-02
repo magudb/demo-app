@@ -7,6 +7,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
@@ -22,13 +23,26 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+const getVersion = ()=>{
+  return process.env.VERSION
+}
+
+const getSha = ()=>{
+  return process.env.SHA
+}
+
 export async function loader({ request }: LoaderArgs) {
+  const version = getVersion()
+  const sha = getSha();
   return json({
     user: await getUser(request),
+    version,
+    sha
   });
 }
 
 export default function App() {
+  const data = useLoaderData();
   return (
     <html lang="en" className="h-full">
       <head>
@@ -40,6 +54,9 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <footer>
+          VERSION: {data.version} - SHA: {data.sha}
+      </footer>
       </body>
     </html>
   );
