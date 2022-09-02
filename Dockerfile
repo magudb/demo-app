@@ -29,6 +29,13 @@ FROM base as build
 
 WORKDIR /myapp
 
+RUN --mount=type=secret,id=VERSION \
+  --mount=type=secret,id=SHA \
+   export VERSION=$(cat /run/secrets/VERSION) && \
+   export SHA=$(cat /run/secrets/SHA) && \
+   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
+
+
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD prisma .
@@ -60,11 +67,5 @@ COPY --from=build /myapp/public /myapp/public
 COPY --from=build /myapp/package.json /myapp/package.json
 COPY --from=build /myapp/start.sh /myapp/start.sh
 COPY --from=build /myapp/prisma /myapp/prisma
-
-RUN --mount=type=secret,id=VERSION \
-  --mount=type=secret,id=SHA \
-   export VERSION=$(cat /run/secrets/VERSION) && \
-   export SHA=$(cat /run/secrets/SHA) && \
-   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
 
 ENTRYPOINT [ "./start.sh" ]
