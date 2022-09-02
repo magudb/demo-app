@@ -153,7 +153,7 @@ jobs:
           tags: ghcr.io/magudb/demo-app:${{ steps.branch-name.outputs.current_branch }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "VERSION={GIT_BRANCH_NAME,,}"
+            "VERSION=${GIT_BRANCH_NAME,,}"
             "SHA=${{ steps.commit.outputs.short }}"
       - uses: actions-hub/kubectl@master
         env:
