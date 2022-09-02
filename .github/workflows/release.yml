@@ -60,7 +60,7 @@ jobs:
           cmd: yq -i '.spec.template.spec.containers[0].image = "ghcr.io/magudb/demo-app:${{ steps.image.outputs.version }}"' 'deployment/deployment.yaml'
       - uses: EndBug/add-and-commit@v9
         with:
-          new_branch: release
+          new_branch: main
           #github_token: ${{ secrets.GH_TOKEN }}
           add: './deployment/deployment.yaml'          
           message: '[RELEASE] Version updated'
