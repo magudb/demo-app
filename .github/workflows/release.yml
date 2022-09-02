@@ -60,7 +60,6 @@ jobs:
         with:
           new_branch: release
           github_token: ${{ secrets.GH_TOKEN }}
-          default_author: github_actions
           add: './deployment/deployment.yaml'          
           message: '[RELEASE] Version updated'
 
