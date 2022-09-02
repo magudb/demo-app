@@ -52,12 +52,6 @@ RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-c
 
 WORKDIR /myapp
 
-RUN --mount=type=secret,id=VERSION \
-  --mount=type=secret,id=SHA \
-   export VERSION=$(cat /run/secrets/VERSION) && \
-   export SHA=$(cat /run/secrets/SHA) && \
-   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
-
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
@@ -66,5 +60,11 @@ COPY --from=build /myapp/public /myapp/public
 COPY --from=build /myapp/package.json /myapp/package.json
 COPY --from=build /myapp/start.sh /myapp/start.sh
 COPY --from=build /myapp/prisma /myapp/prisma
+
+RUN --mount=type=secret,id=VERSION \
+  --mount=type=secret,id=SHA \
+   export VERSION=$(cat /run/secrets/VERSION) && \
+   export SHA=$(cat /run/secrets/SHA) && \
+   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
 
 ENTRYPOINT [ "./start.sh" ]

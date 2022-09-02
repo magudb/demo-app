@@ -17,4 +17,4 @@ node_modules
 
 /app/styles/tailwind.css
 deployment/.DS_Store
-deployment.js
+
