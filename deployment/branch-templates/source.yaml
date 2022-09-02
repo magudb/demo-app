@@ -11,3 +11,4 @@ spec:
   secretRef:
     name: flux-system
   url: ssh://git@github.com/magudb/fleet-infra
+
