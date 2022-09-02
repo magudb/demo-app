@@ -29,19 +29,17 @@ FROM base as build
 
 WORKDIR /myapp
 
-RUN --mount=type=secret,id=VERSION \
-  --mount=type=secret,id=SHA \
-   export VERSION=$(cat /run/secrets/VERSION) && \
-   export SHA=$(cat /run/secrets/SHA) && \
-   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
-
-
 COPY --from=deps /myapp/node_modules /myapp/node_modules
 
 ADD prisma .
 RUN npx prisma generate
 
 ADD . .
+RUN --mount=type=secret,id=VERSION \
+  --mount=type=secret,id=SHA \
+   export VERSION=$(cat /run/secrets/VERSION) && \
+   export SHA=$(cat /run/secrets/SHA) && \
+   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js
 RUN npm run build
 
 # Finally, build the production image with minimal footprint

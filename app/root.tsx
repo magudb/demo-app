@@ -35,10 +35,12 @@ const getSha = ()=>{
 export async function loader({ request }: LoaderArgs) {
   const version = getVersion()
   const sha = getSha();
+  const host = process.env.HOSTNAME;
   return json({
     user: await getUser(request),
     version,
-    sha
+    sha,
+    host
   });
 }
 
@@ -56,7 +58,7 @@ export default function App() {
         <Scripts />
         <LiveReload />
         <footer>
-          VERSION: {data.version} - SHA: {data.sha}
+          <small>{data.host} - {data.version} - {data.sha}</small> 
       </footer>
       </body>
     </html>
