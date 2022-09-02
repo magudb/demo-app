@@ -72,7 +72,7 @@ jobs:
           path: fleet-infra
       - name: Create Kubernetes deployment
         run: |
-          bash deployment/create_deployment.sh ${GIT_BRANCH_NAME} demo-app
+          bash deployment/create_deployment.sh ${GIT_BRANCH_NAME,,} demo-app
       - name: Pushes to fleet-infra
         uses: cpina/github-action-push-to-another-repository@main
         env:
