@@ -45,17 +45,20 @@ ENV SESSION_SECRET="super-duper-s3cret"
 
 ENV PORT="8080"
 ENV NODE_ENV="production"
-
-RUN --mount=type=secret,id=VERSION \
-  --mount=type=secret,id=SHA \
-   export VERSION=$(cat /run/secrets/VERSION) && \
-   export SHA=$(cat /run/secrets/SHA) && \
-   yarn gen
+ENV VERSION="main"
+ENV SHA="value"
 
 # add shortcut for connecting to database CLI
 RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
 
 WORKDIR /myapp
+
+RUN --mount=type=secret,id=VERSION \
+  --mount=type=secret,id=SHA \
+   export VERSION=$(cat /run/secrets/VERSION) && \
+   export SHA=$(cat /run/secrets/SHA) && \
+   echo "VERSION=$VERSION" >> ./.env && \
+   echo "SHA=$SHA" >> ./.env 
 
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma

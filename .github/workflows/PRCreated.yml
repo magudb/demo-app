@@ -20,6 +20,8 @@ jobs:
       packages: write
 
     steps:
+      - id: commit
+        uses: pr-mpt/actions-commit-hash@v1
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Get branch name
@@ -47,8 +49,9 @@ jobs:
           tags: ghcr.io/magudb/demo-app:${{ steps.branch-name.outputs.current_branch }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "VERSION=${{ steps.meta.outputs.tags }}"
-            "SHA=$GITHUB_SHA"
+            "VERSION={GIT_BRANCH_NAME,,}"
+            "SHA=${{ steps.commit.outputs.short }}"
+
   add_to_flux:
     needs: build
     name: 🐳 Add branch to flux
