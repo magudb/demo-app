@@ -17,7 +17,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
+      - name: Get Version
+        id: image
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo VERSION=$VERSION
+          echo "::set-output name=version::$VERSION"
       - name: Log in to the Container registry
         uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         with:
@@ -39,7 +44,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "VERSION=${{ steps.meta.outputs.tags }}"
+            "VERSION=${{ steps.image.outputs.version }}"
             "SHA=$GITHUB_SHA"
   release:
     name: 🐳 Build  
