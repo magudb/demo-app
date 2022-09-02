@@ -6,8 +6,6 @@ metadata:
     nginx.ingress.kubernetes.io/canary: "true"
     nginx.ingress.kubernetes.io/canary-by-header: "x-branch"
     nginx.ingress.kubernetes.io/canary-by-header-value: "(BRANCH)"
-  labels:
-    app: (PRODUCT)-(BRANCH)
   name: (PRODUCT)-(BRANCH)
   namespace: default
 spec:
