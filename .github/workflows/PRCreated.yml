@@ -46,6 +46,9 @@ jobs:
           push: true
           tags: ghcr.io/magudb/demo-app:${{ steps.branch-name.outputs.current_branch }}
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: |
+            "VERSION=${{ steps.meta.outputs.tags }}"
+            "SHA=$GITHUB_SHA"
   add_to_flux:
     needs: build
     name: 🐳 Add branch to flux
