@@ -49,7 +49,8 @@ ENV NODE_ENV="production"
 RUN --mount=type=secret,id=VERSION \
   --mount=type=secret,id=SHA \
    export VERSION=$(cat /run/secrets/VERSION) && \
-   export SHA=$(cat /run/secrets/SHA)
+   export SHA=$(cat /run/secrets/SHA) && \
+   yarn gen
 
 # add shortcut for connecting to database CLI
 RUN echo "#!/bin/sh\nset -x\nsqlite3 \$DATABASE_URL" > /usr/local/bin/database-cli && chmod +x /usr/local/bin/database-cli
