@@ -56,8 +56,7 @@ RUN --mount=type=secret,id=VERSION \
   --mount=type=secret,id=SHA \
    export VERSION=$(cat /run/secrets/VERSION) && \
    export SHA=$(cat /run/secrets/SHA) && \
-   echo "VERSION=$VERSION" >> ./.env && \
-   echo "SHA=$SHA" >> ./.env 
+   echo "export const deployment = {'VERSION': '$VERSION', 'SHA':'$SHA'}" >./deployment.js 
 
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma

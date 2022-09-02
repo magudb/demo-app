@@ -12,6 +12,7 @@ import {
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
+import { deployment } from "../deployment"
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
@@ -24,11 +25,11 @@ export const meta: MetaFunction = () => ({
 });
 
 const getVersion = ()=>{
-  return process.env.VERSION
+  return deployment.VERSION
 }
 
 const getSha = ()=>{
-  return process.env.SHA
+  return deployment.SHA
 }
 
 export async function loader({ request }: LoaderArgs) {
