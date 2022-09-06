@@ -23,6 +23,8 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo VERSION=$VERSION
           echo "::set-output name=version::$VERSION"
+      - id: commit
+        uses: pr-mpt/actions-commit-hash@v1
       - name: Log in to the Container registry
         uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         with:
@@ -45,7 +47,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
             "VERSION=${{ steps.image.outputs.version }}"
-            "SHA=$GITHUB_SHA"
+            "SHA=${{ steps.commit.outputs.short }}"
   release:
     name: 🐳 Build  
     runs-on: ubuntu-latest
