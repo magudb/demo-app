@@ -22,7 +22,7 @@ export default function Index() {
             <div className="relative px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pb-20 lg:pt-32">
               <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-2xl lg:text-2xl">
                 <span className="block uppercase text-yellow-500 drop-shadow-md">
-                  Version: TEST-0025
+                  Version: TEST-0030
                 </span>
               </h2>
             </div>
